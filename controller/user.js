@@ -42,11 +42,14 @@ exports.login = (req, res) => {
                             )
                         });
                     }
-                    res.status(401).json({ 'message': "email ou mot de passe incorrect 2" })
+                    res.status(401).json({ 'message': "email ou mot de passe incorrect " })
                 });
 
         })
-        .catch((e) => { res.status(401).json({ e }) });
+        .catch((e) => { 
+            console.log('hello');
+            console.log("e: ",e);
+            res.status(401).json({ e }) });
 }
 
 exports.test = (req, res) => {
