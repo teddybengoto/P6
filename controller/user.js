@@ -72,12 +72,7 @@ exports.login = (req, res) => {
 
         })
         .catch((e) => {
-            res.status(401).json({ e })
+            res.status(500).json({ e })
         });
 }
 
-exports.test = (req, res) => {
-
-    res.status(200).json({ "massag": "I'm a test" })
-
-}

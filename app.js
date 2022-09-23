@@ -3,9 +3,11 @@ const path = require('path');
 
 const userRoute = require('./routes/user');
 const sauceRoute = require('./routes/sauce');
-const auth = require('./middleware/auth');
+//const helmet = require("helmet");
 
 const app = express();
+//app.use(helmet());
+
 
 app.use(express.json()); // give access to the body 
 // app.use: Is for all type of request

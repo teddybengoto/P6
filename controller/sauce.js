@@ -147,9 +147,6 @@ exports.likeSauce = (req, res) => {
                     }
                     else {
 
-                        /*sauce.usersDisliked = sauce.usersDisliked.filter(el => { el !== reqUserId });
-                        sauce.usersLiked = sauce.usersLiked.filter((el) => { el !== reqUserId });*/
-
                         sauce.usersDisliked.push(reqUserId);
                         sauce.usersLiked = sauce.usersLiked.filter(userId => { userId !== reqUserId });
                     }
@@ -162,7 +159,7 @@ exports.likeSauce = (req, res) => {
 
             Sauce.updateOne({ _id: req.params.id }, sauce)
                 .then(() => { return res.status(200).json({ "message": "votre requet a bien été enregistré" }) })
-                .catch(e => { return res.status(500).json({ e }) });
+                .catch(e => { return res.status(401).json({ e }) });
 
         })
         .catch(e => res.status(500).json({ e }));
