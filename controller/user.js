@@ -1,10 +1,35 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const passwordValidator = require('password-validator');
+const validator = require("email-validator");
 
 const User = require('../bd/models/user');
 
 
 exports.signup = (req, res) => {
+
+    // Create a schema
+    var schema = new passwordValidator();
+
+    // Add properties to it
+    schema
+        .is().min(8)                    // Minimum length 8
+        .is().max(100)                  // Maximum length 100
+        .has().uppercase()              // Must have uppercase letters
+        .has().lowercase()              // Must have lowercase letters
+        .has().digits(1)                // Must have at least 1 digits
+        .has().not().spaces()           // Should not have spaces
+        .has().symbols()                // Must have symbols
+
+    if (!schema.validate(req.body.password)) {
+
+        return res.status(401).json({ "message": "Mot de passe incorrect" })
+    }
+
+    if (!validator.validate(req.body.email)) {
+
+        return res.status(401).json({ "message": "email incorrect" })
+    }
 
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -46,10 +71,9 @@ exports.login = (req, res) => {
                 });
 
         })
-        .catch((e) => { 
-            console.log('hello');
-            console.log("e: ",e);
-            res.status(401).json({ e }) });
+        .catch((e) => {
+            res.status(401).json({ e })
+        });
 }
 
 exports.test = (req, res) => {

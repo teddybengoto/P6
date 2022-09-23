@@ -6,7 +6,6 @@ const multer = require('../middleware/multer-config');
 const router = express.Router();
 
 router.get('/',auth,sauceCtr.getSauces);
-//Todo: Don't  work ???????????,
 router.get('/:id',auth,sauceCtr.getOneSauce);
 router.post('/',auth,multer,sauceCtr.creatSauce);
 router.post('/:id/like',auth,sauceCtr.likeSauce);

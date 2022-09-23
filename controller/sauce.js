@@ -58,7 +58,7 @@ exports.updateSauce = async (req, res, next) => {
         .then(sauce => {
 
             if (sauce.userId != req.auth.userId) {
-                return res.status(401).json({ "message": "Vous n'avez pas le droit d'effectuer cette requet" });
+                return res.status(403).json({ "message": "unauthorized request" });
             }
             else {
 
@@ -85,7 +85,7 @@ exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
             if (sauce.userId != req.auth.userId) {
-                res.status(401).json({ "message": "Vous n'avez pas le droit d'effectuer cette requet" });
+                res.status(403).json({ "message": "unauthorized request" });
             }
             else {
                 const filename = sauce.imageUrl.split('/images/')[1];
