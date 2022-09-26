@@ -157,11 +157,14 @@ exports.likeSauce = (req, res) => {
                     return res.status(500).json({ e })
             }
 
+            sauce.likes=sauce.usersLiked.length;
+            sauce.dislikes=sauce.usersDisliked.length;
+
             Sauce.updateOne({ _id: req.params.id }, sauce)
                 .then(() => { return res.status(200).json({ "message": "votre requet a bien été enregistré" }) })
                 .catch(e => { return res.status(401).json({ e }) });
 
         })
-        .catch(e => res.status(500).json({ e }));
+        .catch(e => res.status(401).json({ e }));
 }
 
